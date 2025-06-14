@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import academyimage from '../assets/images/academy.jpg'
+import upgrade from '../assets/images/upgrade.jpg'
 
-const Academy = () => {
+const Valtrix = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const location = useLocation();
@@ -75,11 +75,10 @@ const Academy = () => {
               />
             </div> */}
             <div className="bg-white p-6 rounded-lg shadow mt-6 w-full h-[600px] max-w-full">
-              <h2 className="text-lg font-semibold mb-4">Academy</h2>
+              <h2 className="text-lg font-semibold mb-4">Valtrix Ai</h2>
               <div className="text-center text-gray-600 flex flex-col items-center justify-center mt-[100px]">
-                <img src={academyimage} alt="" className='w-[300px]' />
-                <p className="font-semibold">Upgrade your plan</p>
-                <p>Your plan isn’t sufficient enough for Live stream feature.</p>
+                <img src={upgrade} alt="" className='w-[300px]' />
+                <p className="font-semibold">Valtrix AI is not available on your current plan</p>
                 <a href="https://t.me/Traydsupport" className='m-2 px-3 py-3 rounded-2xl bg-[#8B865C] text-white'>Upgrade now</a>
               </div>
             </div>
@@ -90,4 +89,4 @@ const Academy = () => {
   );
 };
 
-export default Academy;
+export default Valtrix;

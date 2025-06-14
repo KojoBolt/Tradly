@@ -80,6 +80,7 @@ const Traydtv = () => {
                 <img src={academyimage} alt="" className='w-[300px]' />
                 <p className="font-semibold">Upgrade your plan</p>
                 <p>Your plan isn’t sufficient enough for Live stream feature.</p>
+                <a href="https://t.me/Traydsupport" className='m-2 px-3 py-3 rounded-2xl bg-[#8B865C] text-white'>Upgrade now</a>
               </div>
             </div>
           </div>

@@ -14,6 +14,7 @@ import Traydtv from './components/Traydtv';
 import Webinar from './components/Webinar';
 import Settings from './components/Settings';
 import Subscription from './components/Subscription';
+import Valtrix from './components/Valtrix';
 
 // Firebase auth instance
 const auth = getAuth();
@@ -213,7 +214,17 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/valtrix"
+              element={
+                <ProtectedRoute>
+                  <Valtrix />
+                </ProtectedRoute>
+              }
+            />
+      
           </Routes>
+          
         </div>
       </Router>
     </AuthProvider>

@@ -61,7 +61,7 @@ const Sidebar = () => {
     <aside className="w-64 bg-[#000] text-white h-screen p-3 flex flex-col font-roboto fixed z-50 ">
       <div className="flex flex-col flex-grow min-h-0">
         <div className="text-xl font-bold mb-8 mt-[-20px] border-b-1 border-solid border-b-white p-1">
-          <img src={Logo} alt="Logo" className='w-[90px] h-[90px] m-auto' />
+          <a href="https://traydly.com/"><img src={Logo} alt="Logo" className='w-[90px] h-[90px] m-auto' /></a>
         </div>
 
         <div className="mb-8 flex items-center border-y-1 border-solid border-y-gray-50 pt-3 pb-3 font-roboto">
