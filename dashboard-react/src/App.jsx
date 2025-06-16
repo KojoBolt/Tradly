@@ -90,7 +90,7 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
-// Public Route Component (redirects to dashboard if already authenticated)
+
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
@@ -98,7 +98,7 @@ const PublicRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  return !isAuthenticated ? children : <Navigate to="/" replace />;
+  return !isAuthenticated ? children : <Navigate to="/" />;
 };
 
 function App() {
