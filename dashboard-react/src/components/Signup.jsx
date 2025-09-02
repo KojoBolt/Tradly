@@ -1,191 +1,283 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../config/firebase';
-import Signals from '../assets/images/signals.jpg';
-import Trayd from '../assets/images/Trayd.png';
+import { FaGoogle, FaGithub, FaFacebook, FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash } from 'https://esm.sh/react-icons/fa';
+import { FiCode } from 'https://esm.sh/react-icons/fi';
+import { 
+    getAuth,
+    createUserWithEmailAndPassword, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    GithubAuthProvider, 
+    FacebookAuthProvider,
+    updateProfile,
+    setPersistence,
+    browserSessionPersistence,
+    browserLocalPersistence
+} from 'firebase/auth';
 
+// A simple star SVG component for the decorative element
+const Starburst = () => (
+  <svg viewBox="0 0 100 100" className="absolute -bottom-10 -right-10 w-72 h-72 text-blue-500/30" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="starburst-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="0%" style={{ stopColor: 'rgba(120, 80, 228, 0.5)', stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: 'rgba(120, 80, 228, 0)', stopOpacity: 1 }} />
+      </radialGradient>
+    </defs>
+    <g transform="translate(50,50)">
+      {[...Array(12)].map((_, i) => (
+        <line
+          key={i}
+          x1="0"
+          y1="0"
+          x2="50"
+          y2="0"
+          stroke="url(#starburst-gradient)"
+          strokeWidth="3"
+          transform={`rotate(${i * 30})`}
+        />
+      ))}
+    </g>
+  </svg>
+);
+
+
+// Component for the social login buttons
+const SocialButton = ({ icon, label, onClick }) => {
+  const Icon = icon;
+  return (
+    <button type="button" onClick={onClick} aria-label={label} className="h-12 w-12 flex items-center justify-center rounded-full bg-white text-black hover:bg-gray-200 transition-colors">
+      <Icon size={24} />
+    </button>
+  );
+};
+
+
+// The main component that clones the UI
 const Signup = () => {
-  const navigate = useNavigate();
+  const auth = getAuth(); // Initialize Firebase Auth
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  // Initialize providers
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
 
-  const [errors, setErrors] = useState({});
-
-  const validate = () => {
-    const newErrors = {};
-    if (!form.name.trim()) newErrors.name = 'Full name is required';
-    if (!form.email.includes('@')) newErrors.email = 'Enter a valid email';
-    if (form.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    if (form.password !== form.confirmPassword) newErrors.confirmPassword = 'Passwords do not match';
-    return newErrors;
-  };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
-    setErrors({ ...errors, [e.target.id]: '' });
-  };
-
-  const handleSubmit = async (e) => {
+  // Email and Password Signup Handler
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length) {
-      setErrors(validationErrors);
+    if (!name || !email || !password) {
+      setError("Please fill in all fields.");
       return;
     }
+    if (password.length < 6) {
+        setError("Password must be at least 6 characters long.");
+        return;
+    }
+    setLoading(true);
+    setError('');
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
-      await updateProfile(userCredential.user, { displayName: form.name });
-
-      // Redirect with success message
-      navigate('/', {
-        state: {
-          success: 'You have successfully registered to Traydly',
-        },
+      // Set persistence based on "Keep me logged in" checkbox
+      await setPersistence(auth, keepLoggedIn ? browserLocalPersistence : browserSessionPersistence);
+      
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(userCredential.user, {
+        displayName: name
       });
-    } catch (error) {
-      setErrors({ firebase: error.message });
+      // Handle successful signup (e.g., redirect or show success message)
+      console.log('Signup successful:', userCredential.user);
+      alert(`Welcome, ${name}! Your account has been created.`);
+    } catch (err) {
+      // Handle errors
+      const errorCode = err.code;
+      if (errorCode === 'auth/email-already-in-use') {
+        setError('This email address is already in use.');
+      } else if (errorCode === 'auth/weak-password') {
+        setError('The password is too weak.');
+      } else {
+        setError(err.message);
+      }
+      console.error('Signup error:', err);
+    } finally {
+      setLoading(false);
     }
   };
-
-  const handleGoogleSignUp = async () => {
+  
+  // Social Sign-in Handler
+  const handleSocialSignIn = async (provider) => {
+    setLoading(true);
+    setError('');
     try {
-      await signInWithPopup(auth, googleProvider);
-      navigate('/dashboard', {
-        state: {
-          success: 'You have successfully registered to Traydly',
-        },
-      });
-    } catch (error) {
-      setErrors({ firebase: error.message });
+      // Set persistence based on "Keep me logged in" checkbox
+      await setPersistence(auth, keepLoggedIn ? browserLocalPersistence : browserSessionPersistence);
+      
+      const result = await signInWithPopup(auth, provider);
+      // Handle successful sign-in
+      console.log('Social sign-in successful:', result.user);
+      alert(`Welcome, ${result.user.displayName}!`);
+    } catch (err) {
+      // Handle errors
+      setError(err.message);
+      console.error('Social sign-in error:', err);
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   return (
-    <div className="flex flex-col md:flex-row h-screen">
-      <div className="w-full md:w-1/2 bg-white flex items-center justify-center p-4 md:p-10 mt-[40px] sm:mt-[0] md:mt-0 lg:mt-0">
-        <div className="w-full max-w-md">
-          <div className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 flex justify-center items-center">
-            <img src={Trayd} alt="Tradly-logo" className="w-[150px] md:w-[200px]" />
+    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-[#1e012f] via-[#2c003f] to-[#3a014a] p-4 text-white font-sans">
+      <main className="w-full max-w-6xl flex flex-col lg:flex-row bg-black/20 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/10">
+
+        {/* Left Side: Login Form */}
+        <div className="w-full lg:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
+          <div className="mb-8">
+            <FiCode size={32} />
           </div>
-          <h2 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4">Sign up</h2>
-          <p className="text-gray-600 mb-4 md:mb-6 text-sm md:text-base">
-            Already have an account? <a href="/login" className="text-green-700">Sign in</a>
-          </p>
+          <h1 className="text-3xl font-bold mb-2">You're Welcome</h1>
+          <p className="text-gray-400 mb-8">Already have an Account? <a href="/login" className="text-pink-500 hover:underline">Login</a></p>
 
-          {errors.firebase && (
-            <div className="bg-red-500 text-white text-sm md:text-base p-2 rounded mb-4">
-              {errors.firebase}
-            </div>
-          )}
-
-          <form className="space-y-3 md:space-y-4" onSubmit={handleSubmit}>
+          <div className="space-y-6">
             <div>
-              <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full p-2 border border-gray-300 rounded text-sm md:text-base"
-                placeholder="Enter Your Full Name"
-                value={form.name}
-                onChange={handleChange}
+              <label htmlFor="name" className='block text-sm font-medium text-gray-300 mb-2'>Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full bg-black/40 rounded-full border border-transparent focus:border-gray-500 px-5 py-3 text-white outline-none transition-all"
               />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
             </div>
             <div>
-              <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">
-                E-mail
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full p-2 border border-gray-300 rounded text-sm md:text-base"
-                placeholder="Enter Your Email Address"
-                value={form.email}
-                onChange={handleChange}
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                placeholder="johndoe@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-black/40 rounded-full border border-transparent focus:border-gray-500 px-5 py-3 text-white outline-none transition-all"
               />
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
             </div>
+            
             <div>
-              <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="w-full p-2 border border-gray-300 rounded text-sm md:text-base"
-                placeholder="Create Your Password"
-                value={form.password}
-                onChange={handleChange}
-              />
-              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+              <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+              <div className="relative">
+                <input 
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-black/40 rounded-full border border-transparent focus:border-gray-500 px-5 py-3 text-white outline-none transition-all pr-12"
+                />
+                <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-0 flex items-center px-4 text-gray-400 hover:text-white"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                    {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                </button>
+              </div>
             </div>
-            <div>
-              <label htmlFor="confirmPassword" className="block text-gray-700 text-sm font-bold mb-1 md:mb-2">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                className="w-full p-2 border border-gray-300 rounded text-sm md:text-base"
-                placeholder="Confirm Your Password"
-                value={form.confirmPassword}
-                onChange={handleChange}
-              />
-              {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+
+            {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+
+            <div className="flex justify-between items-center text-sm">
+              <div className="flex items-center gap-2">
+                 {/* Interactive checkbox for "Keep me logged in" */}
+                 <div className="relative">
+                   <input 
+                     type="checkbox"
+                     id="keep-logged-in"
+                     checked={keepLoggedIn}
+                     onChange={(e) => setKeepLoggedIn(e.target.checked)}
+                     className="sr-only"
+                   />
+                   <div 
+                     onClick={() => setKeepLoggedIn(!keepLoggedIn)}
+                     className={`w-4 h-4 rounded-sm border-2 cursor-pointer transition-all ${
+                       keepLoggedIn 
+                         ? 'bg-pink-500 border-pink-500' 
+                         : 'bg-gray-600 border-gray-500 hover:border-gray-400'
+                     }`}
+                   >
+                     {keepLoggedIn && (
+                       <svg className="w-3 h-3 text-white absolute top-0 left-0" fill="currentColor" viewBox="0 0 20 20">
+                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                       </svg>
+                     )}
+                   </div>
+                 </div>
+                 <label htmlFor="keep-logged-in" className="text-gray-300 cursor-pointer" onClick={() => setKeepLoggedIn(!keepLoggedIn)}>Keep me logged in</label>
+              </div>
+              <a href="#" className="font-medium text-gray-300 hover:text-white transition-colors">Forgot Password</a>
             </div>
-            <button
-              type="submit"
-              className="w-full bg-green-800 text-white p-2 rounded hover:bg-green-900 text-sm md:text-base cursor-pointer"
-            >
-              Sign up
-            </button>
-          </form>
 
-          <div className="text-center my-3 md:my-4 text-gray-600 text-sm md:text-base">OR</div>
-          <button
-            onClick={handleGoogleSignUp}
-            className="w-full bg-white border border-gray-300 text-gray-700 p-2 rounded flex items-center justify-center hover:bg-gray-100 text-sm md:text-base"
-          >
-            <img src="https://www.google.com/favicon.ico" alt="Google" className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
-            Continue with Google
-          </button>
-          <button className="w-full bg-white border border-gray-300 text-gray-700 p-2 rounded flex items-center justify-center mt-2 hover:bg-gray-100 text-sm md:text-base">
-            <img src="https://www.facebook.com/favicon.ico" alt="Facebook" className="w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2" />
-            Continue with Facebook
-          </button>
-        </div>
-      </div>
-
-      {/* Right Side */}
-      <div className="w-full md:w-1/2 bg-green-900 items-center justify-center p-4 md:p-10 relative sm:flex md:flex lg:flex hidden">
-        <div className="w-full max-w-md text-white">
-          <div className="bg-gradient-to-r from-emerald-600 to-emerald-900 bg-opacity-10 p-4 md:p-6 rounded-lg shadow-lg">
-            <h3 className="text-lg md:text-xl font-semibold mb-2">Reach financial goals faster</h3>
-            <p className="text-gray-200 mb-2 md:mb-4 text-sm md:text-base">
-              Get top-notch trading insights without spending a fortune. Traydly’s got exciting flexible plans to hook you up with premium perks.
-            </p>
-            <img src={Signals} alt="" className="rounded-2xl w-full md:w-auto" />
-            <button className="bg-green-800 text-white p-2 rounded hover:bg-green-900 mt-2 text-sm md:text-base">
-              Learn more
+            <button type="button" onClick={handleSignUp} disabled={loading} className="w-full py-3 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 hover:opacity-90 transition-opacity font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+              {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
           </div>
-          <div className="mt-4 md:mt-6 text-center">
-            <h3 className="text-lg md:text-xl font-semibold mb-2">Introducing AI driven features</h3>
-            <p className="text-gray-200 text-sm md:text-base">
-              Instant AI-driven trade alerts that identify high-probability opportunities
-            </p>
+
+          <div className="relative flex items-center justify-center my-8">
+            <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-600"></div>
+            </div>
+            <div className="relative px-4 bg-[#2c003f] text-sm text-gray-400">Or continue with</div>
+          </div>
+
+          <div className="flex justify-center gap-4 mt-8">
+            <SocialButton icon={FaGoogle} label="Sign in with Google" onClick={() => handleSocialSignIn(googleProvider)} />
+            <SocialButton icon={FaGithub} label="Sign in with GitHub" onClick={() => handleSocialSignIn(githubProvider)} />
+            <SocialButton icon={FaFacebook} label="Sign in with Facebook" onClick={() => handleSocialSignIn(facebookProvider)} />
           </div>
         </div>
-      </div>
+
+
+        {/* Right Side: Testimonial Section */}
+        <div className="clip-custom relative w-full lg:w-1/2 p-8 sm:p-12 bg-black/30 lg:flex flex-col justify-center items-start hidden">
+          <Starburst />
+
+          <div className="relative z-10">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">What's our Jobseekers Said.</h2>
+            <div className="text-7xl font-serif text-white/20 absolute -top-8 left-0">"</div>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              "Search and find your dream job is now easier than ever. Just browse a job and apply if you need to."
+            </p>
+            <div className="mt-8">
+              <p className="font-semibold text-lg">Mas Parjono</p>
+              <p className="text-gray-400">UI Designer at Google</p>
+            </div>
+            <div className="flex gap-4 mt-8">
+              <button className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                <FaArrowLeft />
+              </button>
+              <button className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                <FaArrowRight />
+              </button>
+            </div>
+          </div>
+
+          <div className="absolute -bottom-2 right-12 z-10 w-80 bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/10">
+            <h3 className="font-semibold mb-2">Get your right job and right place apply now</h3>
+            <p className="text-sm text-gray-300 mb-4">Be among the first founders to experience the easiest way to start run a business.</p>
+            <div className="flex -space-x-3">
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=1" alt="User 1" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=2" alt="User 2" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=3" alt="User 3" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=4" alt="User 4" />
+            </div>
+          </div>
+        </div>
+
+      </main>
     </div>
   );
 };

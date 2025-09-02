@@ -15,7 +15,9 @@ import Webinar from './components/Webinar';
 import Settings from './components/Settings';
 import Subscription from './components/Subscription';
 import Valtrix from './components/Valtrix';
-
+import Homepage from './components/Homepage';
+import Navbar from './components/Navbar';
+import Privacy from './components/Privacy';
 // Firebase auth instance
 const auth = getAuth();
 
@@ -84,21 +86,22 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>; // Or your loading component
+    return <div className='flex items-center justify-center h-screen'>Loading...</div>; 
   }
 
   return isAuthenticated ? children : <Navigate to="/login" />;
 };
 
 
+
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='h-screen flex items-center justify-center'>Loading...</div>;
   }
 
-  return !isAuthenticated ? children : <Navigate to="/" />;
+  return !isAuthenticated ? children : <Navigate to="/dashboard" />;
 };
 
 function App() {
@@ -108,6 +111,8 @@ function App() {
         <div>
           <Routes>
             {/* Public routes */}
+            <Route element={<Navbar />} />
+            <Route path="/" element={<Homepage />} />
             <Route
               path="/login"
               element={
@@ -122,12 +127,14 @@ function App() {
                 <PublicRoute>
                   <Signup />
                 </PublicRoute>
+
               }
             />
+            <Route path="/privacy" element={<Privacy />} />
 
             {/* Protected routes */}
             <Route
-              path="/"
+              path="/dashboard"
               element={
                 <ProtectedRoute>
                   <Dashboard />
