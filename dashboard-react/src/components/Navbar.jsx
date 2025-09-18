@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../assets/images/down.png';
+import logo from '../assets/images/Black.png';
 import { Link} from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -65,15 +65,17 @@ const Navbar = () => {
          <RouterLink to="/login" className="text-gray-200 hover:text-white font-medium transition-colors duration-300">
            Login
          </RouterLink>
+         <RouterLink to="/signup">
           <button 
             className="flex items-center gap-3 bg-violet-600 hover:bg-violet-500 transition-colors 
-                       duration-300 text-white font-semibold text-base py-2.5 pl-5 pr-2.5 rounded-full"
+                       duration-300 text-white font-semibold text-base py-2.5 pl-5 pr-2.5 rounded-full cursor-pointer"
           >
             Get Started
             <span className="flex items-center justify-center w-8 h-8 bg-black rounded-full">
               {arrowSvg}
             </span>
           </button>
+          </RouterLink>
         </div>
       </nav>
 
@@ -92,6 +94,7 @@ const Navbar = () => {
             <RouterLink to="/subscriptions" className="text-white text-xl font-semibold" onClick={() => setMenuOpen(false)}>Subscriptions</RouterLink>
             <RouterLink to="/privacy" className="text-white text-xl font-semibold" onClick={() => setMenuOpen(false)}>Privacy Policy</RouterLink>
             <RouterLink to="/login" className="text-white text-lg mt-6" onClick={() => setMenuOpen(false)}>Login</RouterLink>
+            <RouterLink to="/signup">
             <button
               className="flex items-center gap-3 bg-violet-600 hover:bg-violet-500 transition-colors
                          duration-300 text-white font-semibold text-base py-2.5 pl-5 pr-2.5 rounded-full mt-4"
@@ -102,6 +105,7 @@ const Navbar = () => {
                 {arrowSvg}
               </span>
             </button>
+            </RouterLink>
           </nav>
         </div>
       )}

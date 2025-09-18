@@ -168,7 +168,8 @@ const Login = () => {
             <FiCode size={32} />
           </div>
           <h1 className="text-3xl font-bold mb-2">Welcome back</h1>
-          <p className="text-gray-400 mb-8">Please Enter your Account details</p>
+          <p className="text-gray-400 mb-2">Please Enter your Account details</p>
+          <p className='text-sm p-2 mb-8'>Don't have an account? <a href="/signup" className="text-pink-500">Sign up</a></p>
           
           <div className="space-y-6">
             <div>
@@ -256,14 +257,14 @@ const Login = () => {
           <Starburst />
 
           <div className="relative z-10">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-6">What's our Jobseekers Said.</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold mb-6">What's our Students Said.</h2>
             <div className="text-7xl font-serif text-white/20 absolute -top-8 left-0">"</div>
             <p className="text-gray-300 leading-relaxed text-lg">
-              "Search and find your dream job is now easier than ever. Just browse a job and apply if you need to."
+              "was surprised by how accurate the AI insights are. It’s like having a personal trading assistant guiding me every step of the way."
             </p>
             <div className="mt-8">
-              <p className="font-semibold text-lg">Mas Parjono</p>
-              <p className="text-gray-400">UI Designer at Google</p>
+              <p className="font-semibold text-lg">Musa Adewale</p>
+              <p className="text-gray-400">Web Designer</p>
             </div>
             <div className="flex gap-4 mt-8">
               <button className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
@@ -276,13 +277,13 @@ const Login = () => {
           </div>
 
           <div className="absolute -bottom-5 right-12 z-10 w-80 bg-white/10 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/10">
-            <h3 className="font-semibold mb-2">Get your right job and right place apply now</h3>
-            <p className="text-sm text-gray-300 mb-4">Be among the first founders to experience the easiest way to start run a business.</p>
+            <h3 className="font-semibold mb-2">Trade smarter, grow faster — join today.</h3>
+            <p className="text-sm text-gray-300 mb-4">Step into the future of investing — the easiest way to trade smarter.</p>
             <div className="flex -space-x-3">
-                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=1" alt="User 1" />
-                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=2" alt="User 2" />
-                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=3" alt="User 3" />
-                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://i.pravatar.cc/40?img=4" alt="User 4" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMjOZybAMCJOWVA0W7TR3zc3eKM4xtAqyswg&s" alt="User 1" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoEjJaLzKEFkSUTenXwYY2tUAF7_i3NCuKbA&s" alt="User 2" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSORUyBjYgvUvEHPQw991K3QF7Y5zakBIfgAA&s" alt="User 3" />
+                <img className="w-10 h-10 rounded-full border-2 border-[#1e012f]" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfLVIVy4xL6lGGdozs6DKrlm7Grn1hE7QXrA&s" alt="User 4" />
             </div>
           </div>
         </div>

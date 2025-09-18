@@ -58,10 +58,12 @@ const TradingLandingPage = () => {
 
               {/* Get Started Button */}
               <div className="pt-6">
-                <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-8 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-purple-500/25">
-                  <span>Get Started</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+                <a href="/signup">
+                  <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-4 px-8 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 cursor-pointer">
+                    <span>Get Started</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </button>
+                </a>
               </div>
             </div>
 

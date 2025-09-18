@@ -52,7 +52,7 @@ function MarkUp() {
   return (
     <div 
       ref={sectionRef}
-      className='flex justify-center items-center mt-[5px] min-h-screen px-4'
+      className='flex justify-center items-center mt-[5px] lg:min-h-screen min-h-[200px] px-4'
       style={{
         perspective: '1000px', // Enables 3D transforms
       }}

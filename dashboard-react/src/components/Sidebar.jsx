@@ -29,15 +29,15 @@ const Sidebar = () => {
     { name: 'Dashboards', path: '/', icon: <FaChartBar className="w-5 h-5" /> },
     { name: 'Signals', path: '/signals', icon: <FaSignal className="w-5 h-5" /> },
     { name: 'Academy', path: '/academy', icon: <FaGraduationCap className="w-5 h-5" /> },
-    { name: 'PrenureTV', path: '/prenuretv', icon: <FaTv className="w-5 h-5" /> },
+    { name: 'CirviaTV', path: '/cirviatv', icon: <FaTv className="w-5 h-5" /> },
     { name: 'Subscription', path: '/subscription', icon: <FaCreditCard className="w-5 h-5" /> },
-    { name: 'Connect to Prenure AI', path: '/valtrix', icon: <MdFlashAuto className="w-5 h-5" /> },
-    { name: 'Support', url: 'http://t.me/Traydsupport', isExternal: true, icon: <FaHeadset className="w-5 h-5" /> },
+    { name: 'Connect to Cirvia AI', path: '/valtrix', icon: <MdFlashAuto className="w-5 h-5" /> },
+    { name: 'Support', url: 'https://t.me/+QGyMf_nkYABhZWU0', isExternal: true, icon: <FaHeadset className="w-5 h-5" /> },
     { name: 'Settings', path: '/settings', icon: <FaCog className="w-5 h-5" /> },
   ];
 
   const partnerBrokers = [
-    { name: 'IQ option', url: 'https://affiliate.iqbroker.com/redir/?aff=754695&aff_model=revenue&afftrack=', isExternal: true },
+    { name: 'IQ option', url: 'https://iqoption.net/lp/mobile-partner-pwa/?aff=788064&aff_model=revenue&afftrack=', isExternal: true },
     { name: 'Pocket Option', url: '#', isExternal: true },
     { name: 'Quotex', url: '#', isExternal: true },
   ];
@@ -61,7 +61,7 @@ const Sidebar = () => {
     <aside className="w-64 bg-[#000] text-white h-screen p-3 flex flex-col font-roboto fixed z-50 ">
       <div className="flex flex-col flex-grow min-h-0">
         <div className="text-xl font-bold mb-8 mt-[-20px] border-b-1 border-solid border-b-white p-1">
-          <a href="https://traydly.com/"><img src={Logo} alt="Logo" className='w-[280px] h-[86px] m-auto ' /></a>
+          <a href="http://cirviaoptions.com.ng/"><img src={Logo} alt="Logo" className='w-[280px] h-[86px] m-auto ' /></a>
         </div>
 
         <div className="mb-8 flex items-center border-y-1 border-solid border-y-gray-50 pt-3 pb-3 font-roboto">

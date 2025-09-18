@@ -112,7 +112,7 @@ const ClaimPopup = ({ onClose }) => {
               </ol>
 
               <p className="text-sm text-gray-600">
-                Need help? Visit <a href="https://traydly.com" className="text-blue-600 underline hover:text-blue-800">traydly.com</a> or email <a href="mailto:help@traydly.com" className="text-blue-600 underline hover:text-blue-800">help@traydly.com</a>
+                Need help? Visit <a href="https://ciaviaoptions.com.ng/" className="text-blue-600 underline hover:text-blue-800">ciaviaoptions</a> or email <a href="mailto:help@ciaviaoptions.com.ng" className="text-blue-600 underline hover:text-blue-800">help@ciaviaoptions.com.ng</a>
               </p>
             </div>
           )}

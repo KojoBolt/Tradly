@@ -4,11 +4,12 @@ import { Stars } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber'
 import BrandCarousel from './BrandCarousel'
 import MarkUp from './MarkUp'
-import TradingSections from './TradingSections'
-import TradingLandingPage from './TradingLandingPage'
-import PremiumAccessSection from './PremiumAccessSection'
-import GetStartedSection from './GetStartedSection'
-import PricingPage from './PricingPage'
+// import TradingSections from './TradingSections'
+// import TradingLandingPage from './TradingLandingPage'
+// import PremiumAccessSection from './PremiumAccessSection'
+// import GetStartedSection from './GetStartedSection'
+// import PricingPage from './PricingPage'
+import { Link } from 'react-router-dom';
 
 
 
@@ -56,7 +57,7 @@ const Hero = () => {
 
   return (
     // Main container with relative positioning to contain pseudo-elements
-    <motion.div className="relative w-full flex flex-col items-center justify-center min-h-[700px] text-white pt-24 pb-16 px-4 overflow-hidden
+    <motion.div className="relative w-full flex flex-col items-center justify-center text-white pt-24 pb-16 px-4 overflow-hidden
                     " style={{
         backgroundImage,
       }}>
@@ -87,8 +88,9 @@ const Hero = () => {
         </p>
 
         {/* Call to Action Button */}
+        <Link to="/signup" className='w-full flex justify-center'>
         <motion.button
-          className="flex items-center gap-3 bg-black hover:bg-violet-500 transition-colors 
+          className="flex items-center gap-3 bg-black hover:bg-black/50 cursor-pointer transition-colors 
                      duration-300 text-white font-semibold text-base py-3 pl-6 pr-3 rounded-full mb-10"
           style={{ border, boxShadow }}
         >
@@ -97,6 +99,7 @@ const Hero = () => {
             {arrowSvg}
           </span>
         </motion.button>
+        </Link>
 
         {/* Footer Text */}
         <p className="flex items-center gap-3 lg:text-md text-gray-300 flex-wrap justify-center">
@@ -104,7 +107,7 @@ const Hero = () => {
           We empower over <strong className="text-white font-semibold">10,000+ Traders and Organizations</strong> worldwide with precision-driven AI Signals
         </p>
       </div>
-      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto flex-wrap">
         <BrandCarousel />
       </div>
       <div className=''>

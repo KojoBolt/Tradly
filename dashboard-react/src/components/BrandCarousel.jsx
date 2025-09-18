@@ -15,7 +15,7 @@ const brands = [
 
 export default function BrandCarousel() {
   return (
-    <div className="w-full backdrop-blur-sm lg:mt-[90px] mt-10">
+    <div className="w-full backdrop-blur-sm lg:mt-[90px] mt-10 flex flex-wrap lg:block lg:flex-nowrap ">
       <h2 className="text-center text-white text-lg font-medium mb-6">
         Trusted by Leading Brokers for Seamless Trading
       </h2>

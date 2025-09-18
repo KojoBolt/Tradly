@@ -32,7 +32,7 @@ const TradingSections = () => {
                   className="w-full h-auto object-cover"
                 /> */}
                 <video
-                    src="https://videocdn.cdnpk.net/videos/7f53532d-8b87-510f-bad2-509b1af7a3be/horizontal/previews/clear/large.mp4?token=exp=1756807906~hmac=4b8c2ccf81d8ed71496a6c59271d91178511dd4c6edaa56da3a87b3616795be7"
+                    src="https://cdn.pixabay.com/video/2023/10/14/184941-874460311_large.mp4"
                     className="w-[501.3px] h-[560px] object-cover lg:block hidden opacity-40 rounded-2xl"
                     controls
                     autoPlay

@@ -31,17 +31,19 @@ const TradingHero = () => {
 
         {/* CTA Button */}
         <div className="flex justify-center">
-          <button className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 px-8 py-4 rounded-full flex items-center gap-3 font-semibold text-lg text-white transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
-            <span className="relative z-10">Get Started</span>
-            
-            {/* Arrow Icon with Black Circle Background */}
-            <div className="relative z-10 w-10 h-10 bg-black rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+          <a href="/signup">
+            <button className="group relative overflow-hidden bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 px-8 py-4 rounded-full flex items-center gap-3 font-semibold text-lg text-white transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25">
+              <span className="relative z-10">Get Started</span>
+
+              {/* Arrow Icon with Black Circle Background */}
+              <div className="relative z-10 w-10 h-10 bg-black rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
               <ArrowRight className="w-5 h-5 text-white" />
             </div>
             
             {/* Animated Background Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div className="absolute cursor-pointer inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
+          </a>
         </div>
 
         {/* Background Particles Effect */}

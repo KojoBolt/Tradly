@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const CTASection = () => {
   return (
@@ -21,11 +22,12 @@ const CTASection = () => {
 
         {/* Button */}
         <div className="mt-8 flex justify-center">
-          <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-medium shadow-lg transition">
-            Try it free
-            <span className="w-6 h-6 rounded-full bg-black flex items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
+          <a href="/signup">
+            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-medium shadow-lg transition cursor-pointer">
+              Try it free
+              <span className="w-6 h-6 rounded-full bg-black flex items-center justify-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
                 className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -40,6 +42,7 @@ const CTASection = () => {
               </svg>
             </span>
           </button>
+          </a>
         </div>
       </div>
     </div>

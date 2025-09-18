@@ -95,7 +95,7 @@ const Dashboard = () => {
               footer="Join Now"
               bgColor="bg-[#3CB7E5]"
               textColor="text-white"
-              link="https://t.me/traydly"
+              link="https://t.me/+QGyMf_nkYABhZWU0"
             />
           </div>
 

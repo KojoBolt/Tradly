@@ -27,7 +27,7 @@ const FAQAccordion = () => {
       id: 4,
       question: "How can I get in touch with the Cirvia Option team?",
       answer:
-        "You can reach our SquaredOption team through multiple channels: 24/7 live chat support on our platform, email us at support@squaredoption.com, or use our contact form. Our expert support team is always ready to assist you with any questions or technical issues you may encounter.",
+        "You can reach our Cirvia Option team through multiple channels: 24/7 live chat support on our platform, email us at support@cirviaoption.com, or use our contact form. Our expert support team is always ready to assist you with any questions or technical issues you may encounter.",
     },
     {
       id: 5,

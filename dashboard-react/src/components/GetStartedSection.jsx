@@ -78,10 +78,12 @@ const GetStartedSection = () => {
 
                 {/* Button */}
                 <div className="mt-auto">
-                  <button className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 px-6 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 group-hover:scale-105">
-                    <span>{step.buttonText}</span>
-                    <ArrowRight className="w-6 h-6 bg-black rounded-2xl" />
-                  </button>
+                  <a href="/signup">
+                    <button className="bg-[black] hover:bg-black/70 text-white cursor-pointer font-semibold py-3 px-6 rounded-full flex items-center space-x-2 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 group-hover:scale-105">
+                      <span>{step.buttonText}</span>
+                      <ArrowRight className="w-6 h-6 bg-white text-black rounded-2xl" />
+                    </button>
+                  </a>
                 </div>
               </div>
 

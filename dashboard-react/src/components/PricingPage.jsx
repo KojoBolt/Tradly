@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, ArrowRight } from 'lucide-react';
 import { Element } from 'react-scroll';
+import { Link } from 'lucide-react';
 
 const PricingPage = () => {
   return (
@@ -39,11 +40,12 @@ const PricingPage = () => {
                 Unlimited Access Without Broker Requirements
               </p>
             </div>
-
+            <a href="/signup">
             <button className="w-full bg-black text-white py-3 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 mb-8 transition-colors">
               Subscribe to Premium
               <ArrowRight className="w-4 h-4" />
             </button>
+            </a>
 
             <div>
               <h4 className="font-semibold mb-4">Details</h4>
@@ -98,10 +100,11 @@ const PricingPage = () => {
                 Get Started for Free with Our Partner Broker
               </p>
             </div>
-
+            <a href="/signup">
             <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold mb-8 transition-colors">
               Starts Free Now
             </button>
+            </a>
 
             <div>
               <h4 className="font-semibold mb-4">Details</h4>
@@ -159,9 +162,12 @@ const PricingPage = () => {
               </p>
             </div>
 
-            <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold mb-8 transition-colors">
-              Starts Free Now
-            </button>
+            
+            <a href="/signup">
+              <button className="w-full bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-xl font-semibold mb-8 transition-colors">
+                Starts Free Now
+              </button>
+            </a>
 
             <div>
               <h4 className="font-semibold mb-4">Details</h4>

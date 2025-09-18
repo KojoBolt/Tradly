@@ -18,6 +18,7 @@ import Valtrix from './components/Valtrix';
 import Homepage from './components/Homepage';
 import Navbar from './components/Navbar';
 import Privacy from './components/Privacy';
+import Subscriptions from './components/Subscriptions';
 // Firebase auth instance
 const auth = getAuth();
 
@@ -131,6 +132,7 @@ function App() {
               }
             />
             <Route path="/privacy" element={<Privacy />} />
+            <Route path="/subscriptions" element={<Subscriptions />} />
 
             {/* Protected routes */}
             <Route

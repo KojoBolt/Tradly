@@ -24,7 +24,7 @@ const Footer = () => {
           
           {/* Copyright */}
           <div className="text-gray-400 text-sm">
-            ©CirviaOptions 2025, Powered by PrenureHub. All rights reserved.
+            ©CirviaOptions 2025, Powered by CirviaOptions. All rights reserved.
           </div>
 
           {/* Social Media Icons */}
@@ -57,7 +57,7 @@ const Footer = () => {
           {/* Privacy Policy */}
           <div>
             <a 
-              href="#" 
+              href="/privacy" 
               className="text-white font-medium hover:text-purple-400 transition-colors duration-300 relative group"
             >
               Privacy Policy
