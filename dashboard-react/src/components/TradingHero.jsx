@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import logo from '../assets/images/down.png'
+import logo from '../assets/images/Black.png'
 
 const TradingHero = () => {
   return (
